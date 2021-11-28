@@ -7,30 +7,14 @@
 struct Student
 {
 
-private:
 	std::string imie;
 	std::string nazwisko;
 	std::string indeks;
 	int semestr;
 
-public:
-
-Student(std::string im, std::string naz, std::string in, int sm)
-
-{
-	imie=im;
-	nazwisko=naz;
-	indeks=in;
-	semestr=sm;
-} 
-
-void pokaz()
-
-{
-std::cout<<imie<<" "<<nazwisko<<" "<<indeks<<" "<<semestr<<"\n";
-}
-
 };
+
+
 
 std::string imie(std::string im)
 {
@@ -67,38 +51,53 @@ int semestr(int sm)
 auto main()-> int
 
 {
+	while(true)
+	{
 
 	std::string im, naz, in;
-	int i, wybor, sm, wielkosc;
+	int wybor, sm, wielkosc, usun;
+	std::cout<<"######################################\n";
 	std::cout<<"1. Dodawanie nowego studenta\n";
 	std::cout<<"2. Usuwanie studenta\n";
 	std::cout<<"3. Wyswietlanie pelnej tablicy studentow\n";
 	std::cout<<"0. Zakoncz program\n"; 
 	std::cout<<"Podaj jaka akcje chcesz wykonac: ";
 	std::cin>>wybor;
+	std::cout<<"######################################\n";
 	std::vector<Student>vectorStudent;
 
 	switch(wybor)
-
 	{
 
 	case 1:
-
+		
+		
+		vectorStudent.push_back(Student());
 		vectorStudent.push_back(Student{imie(im),nazwisko(naz),indeks(in),semestr(sm)});
+		
 		wielkosc=vectorStudent.size();
 		std::cout<<"Wielkosc wektora: "<<wielkosc<<"\n";
+	
+			
+		break;
+		
+	case 2:
+		std::cout<<"Podaj, ktorego studenta chcesz usunac\n Pamietaj musisz podac liczbe miedzy zero a numerem ostatniego studenta z listy: ";
+		std::cin>>usun;
+		vectorStudent.erase(vectorStudent.begin() + usun);
 		break;
 
-		/* case 3:
+	case 3:
 
-		i=0;
-		for (i; i < vectorStudent.size(); ++i)
+		for (int i=0; i < vectorStudent.size(); ++i)
 		{
-		std::cout<<vectorStudent[i];
+			std::cout<<vectorStudent[i].imie<< " "<<vectorStudent[i].nazwisko<<" "<<vectorStudent[i].indeks<<" "<<vectorStudent[i].semestr<<"\n";
 		}
+			
 		break;
-		*/ 
+	
+		
 	}
+}
 		return 0;
-
 }
