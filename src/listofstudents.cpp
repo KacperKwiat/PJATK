@@ -22,10 +22,10 @@ public:
 		std::cout<<imie<<" "<<nazwisko<<" "<<indeks<<" "<<semestr<<"\n";
 	}
 };
-void lista(std::vector<Student*> vectorStudent)
+void lista(std::vector<Student*> vStudent)
 {
 	int i=0;
-	for( Student* student : vectorStudent)
+	for( Student* student : vStudent)
 	{					
 	std::cout << i << " ";
 	student->pokaz();
@@ -73,17 +73,18 @@ int semestr()
 auto main()-> int
 
 {
-	std::vector<Student*>vectorStudent;
-	while(true)
+	int wybor;
+	std::vector<Student*>vStudent;
+	do 
 	{
 
 	std::string im, naz, in;
-	int wybor, sm, wielkosc, usun;
+	int sm, wielkosc, usun;
 	std::cout<<"######################################\n";
 	std::cout<<"1. Dodawanie nowego studenta\n";
 	std::cout<<"2. Usuwanie studenta\n";
 	std::cout<<"3. Wyswietlanie pelnej tablicy studentow\n";
-	std::cout<<"0. Zakoncz program\n"; 
+	std::cout<<"4. Zakoncz program\n"; 
 	std::cout<<"Podaj jaka akcje chcesz wykonac: ";
 	std::cin>>wybor;
 	std::cout<<"######################################\n";
@@ -92,29 +93,21 @@ auto main()-> int
 	{
 
 	case 1:
-		
-		
-		vectorStudent.push_back(new Student{imie(),nazwisko(),indeks(),semestr()});
-		
-		wielkosc=vectorStudent.size();
-		std::cout<<"Wielkosc wektora: "<<wielkosc<<"\n";	
+		vStudent.push_back(new Student{imie(),nazwisko(),indeks(),semestr()});
 		break;
 		
 	case 2:
 		std::cout<<"Podaj, ktorego studenta chcesz usunac: ";
 		std::cin>>usun;
-		vectorStudent.erase(vectorStudent.begin() + (usun-1));
+		vStudent.erase(vStudent.begin() + (usun-1));
 		std::cout<<"Student nr: "<<usun<<" zostal usuniety\n";
 		break;
 
 	case 3:
-		lista(vectorStudent);
-		break;
-	case 0:
-		exit(1);
+		lista(vStudent);
 		break;
 		
 	}
-}
+}while(wybor!=4);
 		return 0;
 }
