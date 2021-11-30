@@ -97,8 +97,7 @@ auto main()-> int
 		vectorStudent.push_back(new Student{imie(),nazwisko(),indeks(),semestr()});
 		
 		wielkosc=vectorStudent.size();
-		std::cout<<"Wielkosc wektora: "<<wielkosc<<"\n";
-			
+		std::cout<<"Wielkosc wektora: "<<wielkosc<<"\n";	
 		break;
 		
 	case 2:
