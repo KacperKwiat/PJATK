@@ -12,24 +12,18 @@ private:
 	std::string indeks;
 	int semestr;
 public:
-	Student(std::string imie, std::string nazwisko, std::string indeks, int semestr): imie(imie), nazwisko(nazwisko), indeks(indeks), semestr(semestr){}
-	std::string get_imie(){return this->imie;}
-	std::string get_nazwisko(){return this->nazwisko;}
-	std::string get_indeks(){return this->indeks;}
-	int get_semestr(){return this->semestr;}
+	Student(std::string imie, std::string nazwisko, std::string indeks, int semestr): 
+	imie(imie), nazwisko(nazwisko), indeks(indeks), semestr(semestr){}
 	void pokaz()
 	{
 		std::cout<<imie<<" "<<nazwisko<<" "<<indeks<<" "<<semestr<<"\n";
 	}
 };
-void lista(std::vector<Student*> vStudent)
+void lista(std::vector<Student*>vStudent)
 {
-	int i=0;
 	for( Student* student : vStudent)
 	{					
-	std::cout << i << " ";
 	student->pokaz();
-	i++;
 	}
 }
 
