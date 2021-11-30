@@ -98,7 +98,12 @@ auto main()-> int
 		break;
 
 	case 3:
-		lista(vStudent);
+		if(vStudent.empty())
+		{
+			std::cout<<"Lista jest pusta\n";
+		}else{
+			lista(vStudent);
+		}
 		break;
 		
 	}
