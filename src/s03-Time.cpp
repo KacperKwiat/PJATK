@@ -9,49 +9,76 @@ struct Time{
 	int sekunda;
 	public:
 	Time(int g, int m, int s){
-	godzina=g;
-	minuta=m;
-	sekunda=s;
+		godzina=g;
+		minuta=m;
+		sekunda=s;
 	}
-	
 	auto const to_string() -> std::string
 	{
 		auto result = std::ostringstream{};
-		result << godzina<<"::"<<minuta<<"::"<<sekunda<<"\n";
+		if(godzina<10)
+		{
+			result << "0"<<godzina<<"::";	
+		}else{
+			result <<godzina<<"::";
+		}
+		if(minuta<10)
+		{
+			result << "0"<<minuta<<"::";	
+		}else{
+			result <<minuta<<"::";
+		}
+		if(sekunda<10)
+		{
+			result << "0"<<sekunda<<"";	
+		}else{
+			
+			result <<sekunda;
+		}
 		return result.str(); 
 	}
-	nextHour();
+	int nextHour()
 	{
+
 		if(godzina==23)
 		{
 			godzina=0;
 		}else{
 			godzina++;
 			}
+			return godzina;
 	}
-	nextMinute();
+	int nextMinute()
 	{
-		if(sekunda==59)
+
+		if(minuta==59)
 		{
 			minuta=0;
+			nextHour();
 		}else{
 			minuta++;
 		}
+		return minuta;
 	}
-		nextSecond();
+		int nextSecond()
 		{
+
 			if(sekunda==59)
 			{
 				sekunda=0;
+				nextMinute();
 			}else{
 				sekunda++;
 			}
+			return sekunda;
 		}
 	
 };
 auto main()-> int
 {
 	auto czas = Time{23,59,59};
+
+	czas.nextSecond();
 	std::cout<<czas.to_string()<<std::endl;
 	return 0;
 }
