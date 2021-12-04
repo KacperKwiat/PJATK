@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cstdint>
 
 struct Time{
 	private:
@@ -15,11 +16,13 @@ struct Time{
 		noc,
 	};
 	public:
+	Time()=default;
 	Time(int g, int m, int s){
 		godzina=g;
 		minuta=m;
 		sekunda=s;
 	}
+
 	auto const to_string() -> std::string
 	{
 		auto result = std::ostringstream{};
@@ -105,6 +108,41 @@ struct Time{
 			return TimeofDay::noc;
 		}
 	}
+	auto count_seconds() const -> uint64_t
+	{
+			uint64_t wynik;
+			wynik=godzina*3600+minuta*60+sekunda;
+			return wynik;
+	}
+	auto count_minutes() const -> uint64_t
+	{
+			uint64_t wynik;
+			wynik=godzina*60+minuta;
+			return wynik;
+	}
+	auto time_to_midnight()const -> Time
+	{
+		Time dopolnocy;
+		if(sekunda==0)
+		{
+			dopolnocy.sekunda=sekunda;
+			dopolnocy.minuta=60-minuta;
+		}else{
+			dopolnocy.minuta=59-minuta;
+			dopolnocy.sekunda=60-sekunda;
+		}
+		if(minuta==0)
+		{
+			dopolnocy.minuta=minuta;
+			dopolnocy.godzina=24-godzina;
+			
+		}else{
+			dopolnocy.godzina=23-godzina;
+			dopolnocy.minuta=60-minuta;
+		}
+
+		return dopolnocy;
+	}
   
 };
 
@@ -116,7 +154,9 @@ auto main()-> int
 	//#######################################################
 	std::cout<<czas.string_dwa(czas.timeday())<<std::endl;
 	//#######################################################
-	
+	std::cout<<"Od polnocy minelo "<<czas.count_seconds()<<" sekund\n";
+	std::cout<<"Od polnocy minelo "<<czas.count_minutes()<<" minut\n";	
+	std::cout<<"Do polnocy "<<czas.time_to_midnight().to_string()<<"\n";
 	
 	return 0;
 }
