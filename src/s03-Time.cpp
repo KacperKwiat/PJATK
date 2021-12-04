@@ -3,16 +3,18 @@
 #include <sstream>
 
 struct Time{
+	private:
 	int godzina;
 	int minuta;
 	int sekunda;
 	enum class TimeofDay
 	{
-		morning,
-		afternoon,
-		evening,
-		night,
+		rano,
+		dzien,
+		wieczor,
+		noc,
 	};
+	public:
 	Time(int g, int m, int s){
 		godzina=g;
 		minuta=m;
@@ -78,34 +80,33 @@ struct Time{
     std::string string_dwa(TimeofDay pora){
        switch(pora)
        {
-		   case TimeofDay::morning:
-		   return "mornig";
-		   case TimeofDay::afternoon:
-		   return "afternoon";
-		   case TimeofDay::evening:
-		   return "evening";
-		   case TimeofDay::night:
-		   return "night";
-		   default:
+		   case TimeofDay::rano:
+		   return "rano";
+		   case TimeofDay::dzien:
+		   return "dzien";
+		   case TimeofDay::wieczor:
+		   return "wieczor";
+		   case TimeofDay::noc:
+		   return "noc";
+		   default:		   
 		   break;
 	   }
-        
+        exit(0);
     }
-    TimeofDay timeday()
+      TimeofDay timeday()
     {
-		if(godzina<11&&godzina>6){
-			return TimeofDay::morning;
-			}else if(godzina>11 && godzina<18){
-				return TimeofDay::afternoon;
-			}else if(godzina>18 && godzina<22){
-				return TimeofDay::evening;
-			}else if(godzina>22 && godzina<6){
-			return TimeofDay::night;
+		if(godzina<=11&&godzina>=6){
+			return TimeofDay::rano;
+			}else if(godzina>11 && godzina<=18){
+				return TimeofDay::dzien;
+			}else if(godzina>18 && godzina<=22){
+				return TimeofDay::wieczor;
+			}else{
+			return TimeofDay::noc;
 		}
-		exit(1);
-	};
+	}
+  
 };
-	
 
 auto main()-> int
 {
@@ -113,10 +114,8 @@ auto main()-> int
 	czas.nextSecond();
 	std::cout<<czas.to_string()<<std::endl;
 	//#######################################################
-	auto time= Time{12,45,34};
-	time.timeday();
-	std::cout<<time<<std::endl;
-	
+	std::cout<<czas.string_dwa(czas.timeday())<<std::endl;
+	//#######################################################
 	
 	
 	return 0;
