@@ -22,6 +22,9 @@ struct Time{
 		minuta=m;
 		sekunda=s;
 	}
+	~Time()
+	{
+	}
 
 	auto const to_string() -> std::string
 	{
@@ -143,12 +146,65 @@ struct Time{
 
 		return dopolnocy;
 	}
-  
+	Time operator+(const Time& other)const
+	{
+		Time dodaj;
+		if(godzina+other.godzina>=24){
+			dodaj.godzina=godzina+other.godzina-24;
+			
+		}else{
+			dodaj.godzina=godzina+other.godzina;
+		}
+		if(minuta+other.minuta>=60){
+			dodaj.minuta=minuta+other.minuta-60;
+		}else{
+			dodaj.minuta=minuta+other.minuta;		
+			}
+		if(sekunda+other.sekunda>=60){
+			dodaj.sekunda=sekunda+other.sekunda-60;		
+			}else{
+			dodaj.sekunda=sekunda+other.sekunda;		
+		}
+		return dodaj;
+	}
+  	Time operator-(const Time& other)const
+	{
+		Time odejmij;
+		if(godzina-other.godzina<0){
+			odejmij.godzina=24+(godzina-other.godzina);
+			
+		}else{
+			odejmij.godzina=godzina-other.godzina;
+		}
+		if(minuta-other.minuta<0){
+			odejmij.minuta=60+(minuta-other.minuta);
+			odejmij.godzina--;
+		}else{
+			odejmij.minuta=minuta-other.minuta;		
+			}
+		if(sekunda-other.sekunda<0){
+			odejmij.sekunda=60-(sekunda+other.sekunda);	
+			odejmij.minuta--;	
+			}else{
+			odejmij.sekunda=sekunda-other.sekunda;		
+		}
+		return odejmij;
+	}
+	auto operator== ( Time const& other) const -> bool
+	{
+		return (godzina==other.godzina && minuta==other.minuta && sekunda==other.sekunda);
+	}
+		auto operator!= ( Time const& other) const -> bool
+	{
+		return !(*this==other);
+	}
+
 };
+
 
 auto main()-> int
 {
-	auto czas = Time{23,59,59};
+	auto czas = Time{3,32,49};
 	czas.nextSecond();
 	std::cout<<czas.to_string()<<std::endl;
 	//#######################################################
@@ -157,6 +213,16 @@ auto main()-> int
 	std::cout<<"Od polnocy minelo "<<czas.count_seconds()<<" sekund\n";
 	std::cout<<"Od polnocy minelo "<<czas.count_minutes()<<" minut\n";	
 	std::cout<<"Do polnocy "<<czas.time_to_midnight().to_string()<<"\n";
-	
+	//#######################################################
+	auto czas2 = Time{5,35,43};
+	Time wynik=czas+czas2;
+	std::cout<<wynik.to_string()<<std::endl;
+	Time wynik2=czas-czas2;
+	std::cout<<wynik2.to_string()<<std::endl;
+	bool rownosc = wynik==wynik2;
+	std::cout<< rownosc <<std::endl;
+	bool nierownosc= czas!=czas2;
+	std::cout<< nierownosc<<std::endl;
+
 	return 0;
 }
