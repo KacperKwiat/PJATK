@@ -1,3 +1,6 @@
+#ifndef time
+#define time
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -241,3 +244,4 @@ struct Time{
 
 
 };
+#endif 
