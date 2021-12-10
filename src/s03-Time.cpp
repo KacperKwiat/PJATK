@@ -172,17 +172,19 @@ struct Time{
 		Time odejmij;
 		if(godzina-other.godzina<0){
 			odejmij.godzina=24+(godzina-other.godzina);
-			
-		}else{
+		}else if(godzina-other.godzina==0){
+			odejmij.godzina=0;
+		}	
+		else if(godzina-other.godzina>0){
 			odejmij.godzina=godzina-other.godzina;
 		}
-		if(minuta-other.minuta<0){
+		if(minuta-other.minuta<=0){
 			odejmij.minuta=60+(minuta-other.minuta);
 			odejmij.godzina--;
 		}else{
 			odejmij.minuta=minuta-other.minuta;		
 			}
-		if(sekunda-other.sekunda<0){
+		if(sekunda-other.sekunda<=0){
 			odejmij.sekunda=60-(sekunda+other.sekunda);	
 			odejmij.minuta--;	
 			}else{
@@ -198,6 +200,45 @@ struct Time{
 	{
 		return !(*this==other);
 	}
+	auto operator< (Time const& other) const -> bool
+	{
+		if(godzina<other.godzina){
+			return true;
+		}else if(godzina>other.godzina){
+			return false;
+		}else if(godzina==other.godzina && minuta<other.minuta){
+			return true;
+		}else if(godzina==other.godzina && minuta>other.minuta){
+			return false;
+		}else if(godzina==other.godzina && minuta==other.minuta && sekunda<other.sekunda){
+			return true;
+		}else if(godzina==other.godzina && minuta==other.minuta && sekunda>other.sekunda){
+			return false;
+		}else if(godzina==other.godzina && minuta==other.minuta && sekunda==other.sekunda){
+			return false;
+		}
+		exit(0);
+	}
+	auto operator> (Time const& other) const -> bool
+	{
+		if(godzina<other.godzina){
+			return false;
+		}else if(godzina>other.godzina){
+			return true;
+		}else if(godzina==other.godzina && minuta<other.minuta){
+			return false;
+		}else if(godzina==other.godzina && minuta>other.minuta){
+			return true;
+		}else if(godzina==other.godzina && minuta==other.minuta && sekunda<other.sekunda){
+			return false;
+		}else if(godzina==other.godzina && minuta==other.minuta && sekunda>other.sekunda){
+			return true;
+		}else if(godzina==other.godzina && minuta==other.minuta && sekunda==other.sekunda){
+			return false;
+		}
+		exit(0);
+	}
+
 
 };
 
@@ -214,15 +255,18 @@ auto main()-> int
 	std::cout<<"Od polnocy minelo "<<czas.count_minutes()<<" minut\n";	
 	std::cout<<"Do polnocy "<<czas.time_to_midnight().to_string()<<"\n";
 	//#######################################################
-	auto czas2 = Time{5,35,43};
+	auto czas2 = Time{3,23,43};
 	Time wynik=czas+czas2;
 	std::cout<<wynik.to_string()<<std::endl;
 	Time wynik2=czas-czas2;
 	std::cout<<wynik2.to_string()<<std::endl;
 	bool rownosc = wynik==wynik2;
-	std::cout<< rownosc <<std::endl;
+	std::cout<<"Jesli jest 1 to "<<czas.to_string()<<" i " <<czas2.to_string()<<" sa rowne: "<<rownosc<<std::endl;
 	bool nierownosc= czas!=czas2;
-	std::cout<< nierownosc<<std::endl;
-
+	std::cout<<"Jesli jest 1 to "<<czas.to_string()<<" i " <<czas2.to_string()<<" sa rozne: "<< nierownosc<<std::endl;
+	bool mniejszosc= czas<czas2;
+	std::cout<<"Jesli jest 1 to "<<czas.to_string()<<" jest mniejsze: "<<mniejszosc<<std::endl;
+	bool wiekszosc= czas>czas2;
+	std::cout<<"Jesli jest 1 to "<<czas.to_string()<<" jest wiekszy: "<<wiekszosc<<std::endl;
 	return 0;
 }
