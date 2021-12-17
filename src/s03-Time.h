@@ -154,7 +154,6 @@ struct Time{
 		Time dodaj;
 		if(godzina+other.godzina>=24){
 			dodaj.godzina=godzina+other.godzina-24;
-			
 		}else{
 			dodaj.godzina=godzina+other.godzina;
 		}
@@ -177,7 +176,7 @@ struct Time{
 			odejmij.godzina=24+(godzina-other.godzina);
 		}else if(godzina-other.godzina==0){
 			odejmij.godzina=0;
-		}	
+		}
 		else if(godzina-other.godzina>0){
 			odejmij.godzina=godzina-other.godzina;
 		}
@@ -188,7 +187,7 @@ struct Time{
 			odejmij.minuta=minuta-other.minuta;		
 			}
 		if(sekunda-other.sekunda<=0){
-			odejmij.sekunda=60-(sekunda+other.sekunda);	
+			odejmij.sekunda=60+(sekunda-other.sekunda);	
 			odejmij.minuta--;	
 			}else{
 			odejmij.sekunda=sekunda-other.sekunda;		
@@ -202,6 +201,7 @@ struct Time{
 		auto operator!= ( Time const& other) const -> bool
 	{
 		return !(*this==other);
+		
 	}
 	auto operator< (Time const& other) const -> bool
 	{

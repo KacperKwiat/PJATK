@@ -6,7 +6,7 @@
 
 auto main()-> int
 {
-	auto czas = Time{3,32,49};
+	auto czas = Time{23,59,59};
 	czas.nextSecond();
 	std::cout<<czas.to_string()<<std::endl;
 	//#######################################################
@@ -16,7 +16,7 @@ auto main()-> int
 	std::cout<<"Od polnocy minelo "<<czas.count_minutes()<<" minut\n";	
 	std::cout<<"Do polnocy "<<czas.time_to_midnight().to_string()<<"\n";
 	//#######################################################
-	auto czas2 = Time{3,23,43};
+	auto czas2 = Time{4,2,5};
 	Time wynik=czas+czas2;
 	std::cout<<wynik.to_string()<<std::endl;
 	Time wynik2=czas-czas2;
