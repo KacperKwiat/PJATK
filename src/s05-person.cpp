@@ -49,6 +49,16 @@ class Queen : public Person{
 auto who_is_it(Person const& osoba) -> std::string{
 	return osoba.to_string();
 }
+class Greeting{
+	public:
+	virtual std::string greet(Person const& osoba)const = 0;
+};
+class Hello :public Greeting
+{
+	auto greet(Person& osoba)const->std::string{
+		return "Hello "+ osoba.to_string();
+	}
+};
 
 auto main()-> int
 {
@@ -61,6 +71,7 @@ auto main()-> int
 	std::cout<<who_is_it(*dwa)<<std::endl;
 	std::cout<<who_is_it(*trzy)<<std::endl;
 	std::cout<<who_is_it(*cztery)<<std::endl;
-	
+	Greeting* hello=new Hello();
+	std::cout<<hello->greet(*jeden)<<std::endl;
 	return 0;
 }
