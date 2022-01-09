@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <sstream>
+
 std::string Battelfield[11][11];
 std::string ship_place[10];
 int column_position;
@@ -8,8 +8,6 @@ int first_letter;
 std::string placment;
 std::string row;
 int row_position;
-int sunk_ships;
-const int MAX=100;
 char shooting_position[30];
 std::string get_position[30];
 
@@ -49,7 +47,7 @@ void check_uppercase(std::string ship)
 		 for(int i=0;i<ship_size;i++){		 
 			 if(Battelfield[row_position+i][column_position]!=" "){
 				 std::cout<<"Zle rozlozenie statku: "<<ship<<" wychodzi poza obszar rozgrywki"<<std::endl;
-				 show();
+				 showBattelfield();
 				 exit(1);
 				 
 			 }
@@ -59,7 +57,7 @@ void check_uppercase(std::string ship)
 		 for(int i=0;i<ship_size;i++){
 			 			 if(Battelfield[row_position][column_position+i]!=" "){
 				 std::cout<<"Zle rozlozenie statku: "<<ship<<" wychodzi poza obszar rozgrywki"<<std::endl;
-				 show();
+				 showBattelfield();
 				 exit(1);
 				 
 			 }
@@ -73,7 +71,7 @@ void check_uppercase(std::string ship)
 			for(int k=0; k<2;k++){
 				if(Battelfield[row_position+j][column_position+1]=="x" || Battelfield[row_position+j][column_position-1]=="x" || Battelfield[row_position+ship_size][column_position]=="x" || Battelfield[row_position-1][column_position+k]=="x" || Battelfield[row_position-1][column_position-1]=="x"){
 					std::cout<<"Sprawdz rozstawienie swoich statkow pamietaj ze musi byc co najmniej jedna kratka odstepu pomiedzy nimi. Przeszkadzajacy statek jest na pozycji: "<<ship<<std::endl;
-					show();
+					showBattelfield();
 					exit(1);
 				}
 			}
@@ -83,7 +81,7 @@ void check_uppercase(std::string ship)
 			 for(int k=0; k<2;k++){
 				if(Battelfield[row_position-1][column_position+j]=="x" || Battelfield[row_position+1][column_position+j]=="x" || Battelfield[row_position][column_position+ship_size]=="x" || Battelfield[row_position-1][column_position-1]=="x" || Battelfield[row_position-1][column_position+k]=="x"){
 							 std::cout<<"Sprawdz rozstawienie swoich statkow pamietaj ze musi byc co najmniej jedna kratka odstepu pomiedzy nimi. Przeszkadzajacy statek jest na pozycji: "<<ship<<std::endl;
-							 show();
+							 showBattelfield();
 							 exit(1);
 						 }
 					 }
@@ -92,10 +90,9 @@ void check_uppercase(std::string ship)
 		 
  }
  
- void user_uppercase(std::string tab[],int size_tab)
+ void user_uppercase(std::string tab[], int size)
  {
-	
-	for(int i=0;i<size_tab;i++){
+	for(int i=0;i<size+1;i++){
 		first_letter=tab[i].front();
 		if(64<first_letter && first_letter<91){
 			 system("continue");
@@ -106,6 +103,10 @@ void check_uppercase(std::string ship)
 	}
  
  }
+ void ship_status(std::string ship,int ship_size)
+{
+	
+}
 
 	 
 
@@ -205,8 +206,10 @@ auto main(int argc, char* argv[])->int
 	
 	//setting position of destroyer4
 	set_ships(destroyer4,1);
+	//showBattelfield();
 	
 	std::cout<<"Prosze teraz podac pozycje, ktore maja zostac odsloniete(program przyjmnie maksymalnie 10 pol):\n";
+	
 	std::cin.getline(shooting_position,30);
 	std::string position(shooting_position);
 	for(int i=0;i<30;i++){	
@@ -214,10 +217,17 @@ auto main(int argc, char* argv[])->int
 	}
 	
 	for(int j=0;j<30;j){
-		get_position[j]=get_position[j]+get_position[j+1];
-		j=j+3;
+			for(int i=0;i<11;i++){
+			get_position[i]=get_position[j]+get_position[j+1];
+			j=j+3;
+		}
 	}
-	user_uppercase(get_position,30);
+	
+	for(int i=0;i<11;i++)
+	{
+		std::cout<<get_position[i];
+	}
+	//user_uppercase(get_position, 30);
 
 
 	//showBattelfeild();
