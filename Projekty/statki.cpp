@@ -10,6 +10,10 @@ std::string row;
 int row_position;
 char shooting_position[30];
 std::string get_position[30];
+int tab_size;
+int row_shot;
+int column_shot;
+std::string user_row;
 
 void showBattelfield()
 {
@@ -90,23 +94,69 @@ void check_uppercase(std::string ship)
 		 
  }
  
- void user_uppercase(std::string tab[], int size)
+ void user_uppercase(std::string tab[], int size_tab)
  {
-	for(int i=0;i<size+1;i++){
+	 int size;
+	for(int i=0;i<size_tab+1;i++){
 		first_letter=tab[i].front();
+		if(64<first_letter && first_letter<91 || 96<first_letter && first_letter<123){
+			system("continue");
+		}else{
+			size=i;
+			break;
+		}
+	}
+	for(int j=0;j<size;j++){
+		first_letter=tab[j].front();
 		if(64<first_letter && first_letter<91){
 			 system("continue");
 		 }else{
-			 std::cout<<"Prosze ponownie wprowadzic swoje pola: "<<std::endl;
+			 std::cout<<"Podane dane sa bledne prosze je zmienic "<<std::endl;
 			 break;
 		 }
-	}
+	 }
+	
  
  }
- void ship_status(std::string ship,int ship_size)
-{
-	
-}
+ void shots(std::string tab[], int size)
+ {
+	 for(int i=0;i<size;i++){
+		 column_shot=tab[i].front();
+		 user_row=tab[i].at(1);
+		 row_shot=std::atoi(user_row.c_str());
+		 column_shot=column_shot-64;
+		 row_shot=row_shot+1;
+		 if(Battelfield[row_shot][column_shot]==" "){
+			 Battelfield[row_shot][column_shot]="P";
+		 }else{
+			 Battelfield[row_shot][column_shot]="T";
+		 }
+	 }
+		 
+ }
+ void ship_status(std::string ship, int ship_size)
+ {
+	 column_position = ship.front();
+	 row= ship.at(1);
+	 row_position= std::atoi(row.c_str());
+	 column_position = column_position-64;
+	 row_position=row_position+1;	
+	 placment=ship.back();
+	 if(placment=="v"){
+		 for(int i=0;i<ship_size;i++){
+			 if(Battelfield[row_position+i][column_position]=="T"){
+				 Battelfield[row_position+i][column_position]="Z";
+			 }
+		 }
+	 }else{
+		 for(int i=0;i<ship_size;i++){
+			 if(Battelfield[row_position][column_position+i]=="T"){
+				 Battelfield[row_position][column_position+i]="Z";
+			 }
+		 }
+	 }
+				 
+ }
 
 	 
 
@@ -221,15 +271,30 @@ auto main(int argc, char* argv[])->int
 			get_position[i]=get_position[j]+get_position[j+1];
 			j=j+3;
 		}
+	}	 
+	for(int i=0;i<31;i++){
+		first_letter=get_position[i].front();
+		if(64<first_letter && first_letter<91 || 96<first_letter && first_letter<123){
+			system("continue");
+		}else{
+			tab_size=i;
+			break;
+		}
 	}
+	user_uppercase(get_position, 30);
+	shots(get_position,tab_size);
+	ship_status(aircraft,4);
+	ship_status(submarine1,3);
+	ship_status(submarine2,3);
+	ship_status(cruiser1,2);
+	ship_status(cruiser2,2);
+	ship_status(cruiser3,2);
+	ship_status(destroyer1,1);
+	ship_status(destroyer2,1);
+	ship_status(destroyer3,1);
+	ship_status(destroyer4,1);
 	
-	for(int i=0;i<11;i++)
-	{
-		std::cout<<get_position[i];
-	}
-	//user_uppercase(get_position, 30);
 
-
-	//showBattelfeild();
+	showBattelfield();
 	return 0;
 }
