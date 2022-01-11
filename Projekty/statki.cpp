@@ -144,14 +144,18 @@ void check_uppercase(std::string ship)
 	 placment=ship.back();
 	 if(placment=="v"){
 		 for(int i=0;i<ship_size;i++){
+			 for(int j=1;j<ship_size-1;j++){
 			 if(Battelfield[row_position+i][column_position]=="T"){
 				 Battelfield[row_position+i][column_position]="Z";
 			 }
 		 }
+		 }
 	 }else{
 		 for(int i=0;i<ship_size;i++){
+			 for(int j=1;j<ship_size-1;j++){
 			 if(Battelfield[row_position][column_position+i]=="T"){
 				 Battelfield[row_position][column_position+i]="Z";
+			 }
 			 }
 		 }
 	 }
