@@ -49,14 +49,27 @@ class Queen : public Person{
 auto who_is_it(Person const& osoba) -> std::string{
 	return osoba.to_string();
 }
-class Greeting{
-	public:
-	virtual std::string greet(Person const& osoba)const = 0;
-};
-class Hello :public Greeting
+class Greeting
 {
-	auto greet(Person& osoba)const->std::string{
-		return "Hello "+ osoba.to_string();
+	public:
+	virtual std::string greetings(Person const& osoba) = 0;
+};
+
+class Hello : public Greeting{
+	std::string greetings(Person const& osoba){
+		return "Hello " + osoba.to_string();
+	}
+};
+
+class Good_evening : public Greeting{
+	std::string greetings(Person const& osoba){
+		return  "Good evening " + osoba.to_string();
+	}
+};
+
+class Farewell : public Greeting{
+	std::string greetings(Person const& osoba){
+		return "Farewell " + osoba.to_string();
 	}
 };
 
@@ -71,7 +84,12 @@ auto main()-> int
 	std::cout<<who_is_it(*dwa)<<std::endl;
 	std::cout<<who_is_it(*trzy)<<std::endl;
 	std::cout<<who_is_it(*cztery)<<std::endl;
-	Greeting* hello=new Hello();
-	std::cout<<hello->greet(*jeden)<<std::endl;
+	Greeting* hello = new Hello();
+	Greeting* good = new Good_evening();
+	Greeting* farewell = new Farewell();
+	std::cout << hello->greetings(*jeden) << "\n";
+	std::cout << good->greetings(*dwa) << "\n";
+	std::cout << farewell->greetings(*trzy) << "\n";
+	std::cout << farewell->greetings(*cztery) << "\n";
 	return 0;
 }
