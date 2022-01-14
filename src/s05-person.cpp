@@ -20,5 +20,7 @@ auto main()-> int
 	std::cout << good->greetings(*dwa) << "\n";
 	std::cout << farewell->greetings(*trzy) << "\n";
 	std::cout << farewell->greetings(*cztery) << "\n";
+	delete jeden;
+	
 	return 0;
 }

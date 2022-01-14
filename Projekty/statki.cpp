@@ -14,6 +14,7 @@ int tab_size;
 int row_shot;
 int column_shot;
 std::string user_row;
+int count_z=0;
 
 void showBattelfield()
 {
@@ -31,10 +32,10 @@ void showBattelfield()
 void check_uppercase(std::string ship)
 {
 	first_letter=ship.front();
-	if(64<first_letter && first_letter<91){
+	if(64<first_letter && first_letter<75){
 		 system("continue");
 	 }else{
-		 std::cout<<"Prosze uruchomic program ponownie tym razem wprowadzajac wszytkie pole uzywajac wielkich liter"<<std::endl;
+		 std::cout<<"Prosze uruchomic program ponownie tym razem wprowadzajac wszytkie pole uzywajac wielkich liter oraz pamietaj o przedziale od A do J"<<std::endl;
 		 exit(1);
 	 }
  }
@@ -50,7 +51,7 @@ void check_uppercase(std::string ship)
 	 if(placment=="v"){
 		 for(int i=0;i<ship_size;i++){		 
 			 if(Battelfield[row_position+i][column_position]!=" "){
-				 std::cout<<"Zle rozlozenie statku: "<<ship<<" wychodzi poza obszar rozgrywki"<<std::endl;
+				 std::cout<<"Zle rozlozenie statku: "<<ship<<std::endl;
 				 showBattelfield();
 				 exit(1);
 				 
@@ -60,7 +61,7 @@ void check_uppercase(std::string ship)
 	 }else{
 		 for(int i=0;i<ship_size;i++){
 			 			 if(Battelfield[row_position][column_position+i]!=" "){
-				 std::cout<<"Zle rozlozenie statku: "<<ship<<" wychodzi poza obszar rozgrywki"<<std::endl;
+				 std::cout<<"Zle rozlozenie statku: "<<ship<<std::endl;
 				 showBattelfield();
 				 exit(1);
 				 
@@ -128,8 +129,9 @@ void check_uppercase(std::string ship)
 		 row_shot=row_shot+1;
 		 if(Battelfield[row_shot][column_shot]==" "){
 			 Battelfield[row_shot][column_shot]="P";
-		 }else{
+		 }else if(Battelfield[row_shot][column_shot]=="x"){
 			 Battelfield[row_shot][column_shot]="T";
+			 count_z=count_z+1;
 		 }
 	 }
 		 
@@ -153,15 +155,31 @@ void check_uppercase(std::string ship)
 	 }else{
 		 for(int i=0;i<ship_size;i++){
 			 for(int j=1;j<ship_size-1;j++){
-			 if(Battelfield[row_position][column_position+i]=="T"){
-				 Battelfield[row_position][column_position+i]="Z";
+			 if(Battelfield[row_position][column_position+j]=="T"){
+				 Battelfield[row_position][column_position+j]="Z";
 			 }
 			 }
 		 }
 	 }
 				 
  }
+ 
+ void destroyer_status(std::string destroyer)
+ {
+	 column_position = destroyer.front();
+	 row= destroyer.at(1);
+	 row_position= std::atoi(row.c_str());
+	 column_position = column_position-64;
+	 row_position=row_position+1;
+	 if(Battelfield[row_position][column_position]=="T"){
+		 Battelfield[row_position][column_position]="Z";	
+	 } 
+ }
 
+void Show_result()
+{
+	
+}
 	 
 
 auto main(int argc, char* argv[])->int
@@ -260,10 +278,8 @@ auto main(int argc, char* argv[])->int
 	
 	//setting position of destroyer4
 	set_ships(destroyer4,1);
-	//showBattelfield();
-	
+	//do{
 	std::cout<<"Prosze teraz podac pozycje, ktore maja zostac odsloniete(program przyjmnie maksymalnie 10 pol):\n";
-	
 	std::cin.getline(shooting_position,30);
 	std::string position(shooting_position);
 	for(int i=0;i<30;i++){	
@@ -293,12 +309,12 @@ auto main(int argc, char* argv[])->int
 	ship_status(cruiser1,2);
 	ship_status(cruiser2,2);
 	ship_status(cruiser3,2);
-	ship_status(destroyer1,1);
-	ship_status(destroyer2,1);
-	ship_status(destroyer3,1);
-	ship_status(destroyer4,1);
-	
-
+	destroyer_status(destroyer1);//:)
+	destroyer_status(destroyer2);
+	destroyer_status(destroyer3);
+	destroyer_status(destroyer4);
+	//}while(count_z!=20);
+	std::cout<<count_z<<std::endl;
 	showBattelfield();
 	return 0;
 }
