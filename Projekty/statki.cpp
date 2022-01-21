@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 std::string Battelfield[11][11];
 std::string ship_place[10];
 int column_position;
 int first_letter;
+int letter;
 std::string placment;
 std::string row;
 int row_position;
@@ -119,9 +121,10 @@ void check_uppercase(std::string ship)
 	
  
  }
- void shots(std::string tab[], int size)
+ void shots(std::string tab[],int tab_size)
  {
-	 for(int i=0;i<size;i++){
+		
+	 for(int i=0;i<tab_size;i++){
 		 column_shot=tab[i].front();
 		 user_row=tab[i].at(1);
 		 row_shot=std::atoi(user_row.c_str());
@@ -130,7 +133,7 @@ void check_uppercase(std::string ship)
 		 if(Battelfield[row_shot][column_shot]==" "){
 			 Battelfield[row_shot][column_shot]="P";
 		 }else if(Battelfield[row_shot][column_shot]=="x"){
-			 Battelfield[row_shot][column_shot]="T";
+			 Battelfield[row_shot][column_shot]="Z";
 			 count_z=count_z+1;
 		 }
 	 }
@@ -162,6 +165,16 @@ void check_uppercase(std::string ship)
 		 }
 	 }
 				 
+ }
+ 
+ void aircraft_status(std::string ship){
+	 column_position = ship.front();
+	 row= ship.at(1);
+	 row_position= std::atoi(row.c_str());
+	 column_position = column_position-64;
+	 row_position=row_position+1;	 
+	 placment=ship.back();
+	
  }
  
  void destroyer_status(std::string destroyer)
@@ -278,7 +291,8 @@ auto main(int argc, char* argv[])->int
 	
 	//setting position of destroyer4
 	set_ships(destroyer4,1);
-	//do{
+	do{
+	std::vector<std::string>shooting;
 	std::cout<<"Prosze teraz podac pozycje, ktore maja zostac odsloniete(program przyjmnie maksymalnie 10 pol):\n";
 	std::cin.getline(shooting_position,30);
 	std::string position(shooting_position);
@@ -294,6 +308,7 @@ auto main(int argc, char* argv[])->int
 	}	 
 	for(int i=0;i<31;i++){
 		first_letter=get_position[i].front();
+		std::cout<<first_letter<<"\n";
 		if(64<first_letter && first_letter<91 || 96<first_letter && first_letter<123){
 			system("continue");
 		}else{
@@ -301,6 +316,7 @@ auto main(int argc, char* argv[])->int
 			break;
 		}
 	}
+	
 	user_uppercase(get_position, 30);
 	shots(get_position,tab_size);
 	ship_status(aircraft,4);
@@ -313,8 +329,16 @@ auto main(int argc, char* argv[])->int
 	destroyer_status(destroyer2);
 	destroyer_status(destroyer3);
 	destroyer_status(destroyer4);
-	//}while(count_z!=20);
-	std::cout<<count_z<<std::endl;
+	/*for(int i=0;i<31;i++){
+		delete shooting_position[i];
+		delete get_position[i];
+	}*/
+	delete[] shooting_position;
+	delete[] get_position;
+	position.clear();
 	showBattelfield();
+	}while(count_z!=20);
+	showBattelfield();
+	
 	return 0;
 }
