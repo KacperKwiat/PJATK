@@ -17,6 +17,7 @@ int row_shot;
 int column_shot;
 std::string user_row;
 int count_z=0;
+std::string position[30];
 
 void showBattelfield()
 {
@@ -133,13 +134,13 @@ void check_uppercase(std::string ship)
 		 if(Battelfield[row_shot][column_shot]==" "){
 			 Battelfield[row_shot][column_shot]="P";
 		 }else if(Battelfield[row_shot][column_shot]=="x"){
-			 Battelfield[row_shot][column_shot]="Z";
+			 Battelfield[row_shot][column_shot]="T";
 			 count_z=count_z+1;
 		 }
 	 }
 		 
  }
- void ship_status(std::string ship, int ship_size)
+ void aircraft_status(std::string ship)
  {
 	 column_position = ship.front();
 	 row= ship.at(1);
@@ -148,19 +149,15 @@ void check_uppercase(std::string ship)
 	 row_position=row_position+1;	
 	 placment=ship.back();
 	 if(placment=="v"){
-		 for(int i=0;i<ship_size;i++){
-			 for(int j=1;j<ship_size-1;j++){
-			 if(Battelfield[row_position+i][column_position]=="T"){
-				 Battelfield[row_position+i][column_position]="Z";
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="T"&& Battelfield[row_position+3][column_position]=="T" ){
+			 for(int i=0;i<4;i++){
+				 Battelfield[row_position+i][column_position]="Z"
 			 }
-		 }
 		 }
 	 }else{
-		 for(int i=0;i<ship_size;i++){
-			 for(int j=1;j<ship_size-1;j++){
-			 if(Battelfield[row_position][column_position+j]=="T"){
-				 Battelfield[row_position][column_position+j]="Z";
-			 }
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="T"&& Battelfield[row_position][column_position+3]=="T" ){
+			 for(int i=0;i<4;i++){
+				 Battelfield[row_position][column_position+i]="Z"
 			 }
 		 }
 	 }
@@ -175,6 +172,52 @@ void check_uppercase(std::string ship)
 	 row_position=row_position+1;	 
 	 placment=ship.back();
 	
+ }
+ 
+ void submarine_status(std::string ship)
+ {
+	 column_position = ship.front();
+	 row= ship.at(1);
+	 row_position= std::atoi(row.c_str());
+	 column_position = column_position-64;
+	 row_position=row_position+1;	
+	 placment=ship.back();
+	 if(placment=="v"){
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="T"){
+			 for(int i=0;i<3;i++){
+				 Battelfield[row_position+i][column_position]="Z"
+			 }
+		 }
+	 }else{
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="T"){
+			 for(int i=0;i<3;i++){
+				 Battelfield[row_position][column_position+i]="Z"
+			 }
+		 }
+	 }
+ }
+ 
+ void cruiser_status(std::string ship)
+ {
+	 column_position = ship.front();
+	 row= ship.at(1);
+	 row_position= std::atoi(row.c_str());
+	 column_position = column_position-64;
+	 row_position=row_position+1;	
+	 placment=ship.back();
+	 if(placment=="v"){
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T"){
+			 for(int i=0;i<2;i++){
+				 Battelfield[row_position+i][column_position]="Z"
+			 }
+		 }
+	 }else{
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T"){
+			 for(int i=0;i<2;i++){
+				 Battelfield[row_position][column_position+i]="Z"
+			 }
+		 }
+	 } 
  }
  
  void destroyer_status(std::string destroyer)
@@ -292,15 +335,18 @@ auto main(int argc, char* argv[])->int
 	//setting position of destroyer4
 	set_ships(destroyer4,1);
 	do{
-	std::vector<std::string>shooting;
 	std::cout<<"Prosze teraz podac pozycje, ktore maja zostac odsloniete(program przyjmnie maksymalnie 10 pol):\n";
 	std::cin.getline(shooting_position,30);
-	std::string position(shooting_position);
-	for(int i=0;i<30;i++){	
+	new std::string;position[30];
+	for(int i=0;i<31;i++){
+		position[i]=shooting_position[i];
+	}
+	new std::string;get_position[30];
+	for(int i=0;i<31;i++){	
 		get_position[i]=position[i];
 	}
 	
-	for(int j=0;j<30;j){
+	for(int j=0;j<31;j){
 			for(int i=0;i<11;i++){
 			get_position[i]=get_position[j]+get_position[j+1];
 			j=j+3;
@@ -319,12 +365,12 @@ auto main(int argc, char* argv[])->int
 	
 	user_uppercase(get_position, 30);
 	shots(get_position,tab_size);
-	ship_status(aircraft,4);
-	ship_status(submarine1,3);
-	ship_status(submarine2,3);
-	ship_status(cruiser1,2);
-	ship_status(cruiser2,2);
-	ship_status(cruiser3,2);
+	aircraft_status(aircraft);
+	submarine_status(submarine1);
+	submarine_status(submarine2);
+	cruiser_status(cruiser1);
+	cruiser_status(cruiser2);
+	cruiser_status(cruiser3);
 	destroyer_status(destroyer1);//:)
 	destroyer_status(destroyer2);
 	destroyer_status(destroyer3);
@@ -333,9 +379,6 @@ auto main(int argc, char* argv[])->int
 		delete shooting_position[i];
 		delete get_position[i];
 	}*/
-	delete[] shooting_position;
-	delete[] get_position;
-	position.clear();
 	showBattelfield();
 	}while(count_z!=20);
 	showBattelfield();
