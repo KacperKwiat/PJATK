@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 std::string Battelfield[11][11];
 std::string ship_place[10];
@@ -11,7 +12,6 @@ int letter;
 std::string placment;
 std::string row;
 int row_position;
-std::string get_position[30];
 char shooting_position[30];
 int tab_size;
 int row_shot;
@@ -100,20 +100,13 @@ void check_uppercase(std::string ship)
 		 
  }
  
- void user_uppercase(std::string tab[], int size_tab)
+ void user_uppercase(std::vector<std::string>vec)
  {
-	 int size;
-	for(int i=0;i<size_tab+1;i++){
-		first_letter=tab[i].front();
-		if(64<first_letter && first_letter<91 || 96<first_letter && first_letter<123){
-			system("continue");
-		}else{
-			size=i;
-			break;
-		}
-	}
-	for(int j=0;j<size;j++){
-		first_letter=tab[j].front();
+		for(auto s: vec){
+		std::cout<<s<<"\n";
+	} 
+	for(auto s: vec){
+		first_letter=s.front();
 		if(64<first_letter && first_letter<91){
 			 system("continue");
 		 }else{
@@ -124,12 +117,12 @@ void check_uppercase(std::string ship)
 	
  
  }
- void shots(std::string tab[],int tab_size)
+ void shots(std::vector<std::string>vec)
  {
 		
-	 for(int i=0;i<tab_size;i++){
-		 column_shot=tab[i].front();
-		 user_row=tab[i].at(1);
+	 for(auto x: vec){
+		 column_shot=x.front();
+		 user_row=x.at(1);
 		 row_shot=std::atoi(user_row.c_str());
 		 column_shot=column_shot-64;
 		 row_shot=row_shot+1;
@@ -224,6 +217,25 @@ void check_uppercase(std::string ship)
 	 } 
  }
 
+void vector_size(std::vector<std::string>vec)
+{
+	 int count_place=0;
+	 for(auto s: vec){
+		
+		first_letter=s.front();
+		if(64<first_letter && first_letter<91 || 96<first_letter && first_letter<123){
+			count_place=count_place+1;
+			system("continue");
+		}else{
+			vSize=vSize+1;
+		}
+	 }
+		vSize=vSize+count_place;
+		//vec.erase(vec.begin()+count_place, vec.begin()+vSize);
+		for(auto s: vec){
+		std::cout<<s<<"\n";
+	} 
+}
 	 
 
 auto main(int argc, char* argv[])->int
@@ -325,12 +337,13 @@ auto main(int argc, char* argv[])->int
 	
 	std::vector<std::string>shooting;
 	do{
+
 	std::cout<<"Prosze teraz podac pozycje, ktore maja zostac odsloniete(program przyjmnie maksymalnie 10 pol):\n";
 	std::cin.getline(shooting_position,30);
-	new std::string;position[30];
+	std::string position[30];
 	for(int i=0;i<31;i++){
-		position[i]=shooting_position[i];
-	} 
+		position[i]=std::string{shooting_position[i]};
+	}
 	for(int i=0;i<31;i){
 		std::string x;
 		x=position[i]+position[i+1];
@@ -342,13 +355,9 @@ auto main(int argc, char* argv[])->int
 	for(auto s: shooting){
 		std::cout<<s<<"\n";
 	} 
-	shooting.clear();
-	for(int i=0;i<31;i++){
-		shooting_position[i]=' ';
-		position[i]=" ";
-	}
-	/*user_uppercase(get_position, 30);
-	shots(get_position,tab_size);
+	//vector_size(shooting); 
+	//user_uppercase(shooting);
+	/*shots(get_position,tab_size);
 	aircraft_status(aircraft);
 	submarine_status(submarine1);
 	submarine_status(submarine2);
@@ -358,10 +367,13 @@ auto main(int argc, char* argv[])->int
 	destroyer_status(destroyer1);//:)
 	destroyer_status(destroyer2);
 	destroyer_status(destroyer3);
-	destroyer_status(destroyer4);
-	showBattelfield();*/
+	destroyer_status(destroyer4);*/
+		std::fill(std::begin(shooting_position), std::end(shooting_position),' ');
+		std::fill(std::begin(position), std::end(position)," ");
+		shooting.clear();
+	//showBattelfield();
 	}while(count_z!=20);
-	showBattelfield();
+	//showBattelfield();
 	
 	return 0;
 }
