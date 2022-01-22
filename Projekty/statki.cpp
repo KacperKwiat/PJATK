@@ -102,6 +102,19 @@ void check_uppercase(std::string ship)
  
  void user_uppercase(std::vector<std::string>vec)
  {
+	  int count_place=0;
+	 for(auto s: vec){
+		
+		first_letter=s.front();
+		if(64<first_letter && first_letter<91 || 96<first_letter && first_letter<123){
+			count_place=count_place+1;
+			system("continue");
+		}else{
+			vSize=vSize+1;
+		}
+	 }
+		vSize=vSize+count_place;
+		vec.erase(vec.begin()+count_place, vec.begin()+vSize);
 		for(auto s: vec){
 		std::cout<<s<<"\n";
 	} 
@@ -231,10 +244,9 @@ void vector_size(std::vector<std::string>vec)
 		}
 	 }
 		vSize=vSize+count_place;
-		//vec.erase(vec.begin()+count_place, vec.begin()+vSize);
-		for(auto s: vec){
-		std::cout<<s<<"\n";
-	} 
+		vec.erase(vec.begin()+count_place, vec.begin()+vSize);
+		
+		
 }
 	 
 
@@ -335,15 +347,16 @@ auto main(int argc, char* argv[])->int
 	//setting position of destroyer4
 	set_ships(destroyer4,1);
 	
-	std::vector<std::string>shooting;
+	
 	do{
-
+	std::vector<std::string>shooting;
 	std::cout<<"Prosze teraz podac pozycje, ktore maja zostac odsloniete(program przyjmnie maksymalnie 10 pol):\n";
 	std::cin.getline(shooting_position,30);
 	std::string position[30];
 	for(int i=0;i<31;i++){
 		position[i]=std::string{shooting_position[i]};
 	}
+	
 	for(int i=0;i<31;i){
 		std::string x;
 		x=position[i]+position[i+1];
@@ -351,12 +364,9 @@ auto main(int argc, char* argv[])->int
 		i=i+3;
 	}
 	
-	
-	for(auto s: shooting){
-		std::cout<<s<<"\n";
-	} 
 	//vector_size(shooting); 
-	//user_uppercase(shooting);
+	
+	user_uppercase(shooting);
 	/*shots(get_position,tab_size);
 	aircraft_status(aircraft);
 	submarine_status(submarine1);
