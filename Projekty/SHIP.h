@@ -1,3 +1,5 @@
+#ifndef statek
+#define statek
 #include <iostream>
 #include <string>
 #include <vector>
@@ -255,3 +257,4 @@ void SHOW_RESULT(std::string s)
 	 
 	std::cout<<"\n";
  }
+#endif
