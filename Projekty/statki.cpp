@@ -43,14 +43,6 @@ void check_uppercase(std::string ship)
 		 std::cout<<"Prosze uruchomic program ponownie tym razem wprowadzajac wszytkie pole uzywajac wielkich liter oraz pamietaj o przedziale od A do J"<<std::endl;
 		 exit(1);
 	 }
-	/* row= ship.at(1);
-	 row_position= std::atoi(row.c_str());
-	 row_position=row_position+1;	
-	 if(row_position>9 || row_position<0){
-		 std::cout<<"Po literze oznaczajacej kolumne prosze wpisac cyfre wiersza od 0 do 9\n";
-	 }else{
-		 system("conitinue");
-	 }*/
  }
  
  void set_ships(std::string ship, int ship_size)
@@ -108,31 +100,25 @@ void check_uppercase(std::string ship)
 		 
  }
  
- bool user_uppercase(std::vector<std::string>vec)
+ bool user_uppercase(std::string s)
  {
-
-	for(auto s: vec){
 		first_letter=s.front();
 		if(64<first_letter && first_letter<75){
 			return true;
-			 system("continue");
-		 }else if(first_letter==0){
-			 return true;
-			 system("continue");
-		 }else if(64>first_letter || first_letter>75){
-			 std::cout<<"Podane dane sa bledne prosze je zmienic "<<std::endl;
-			 return false;
-			 break;
-			 
-		 }
-	 }
-	exit(0);
- 
- }
- void shots(std::vector<std::string>vec)
+			system("continue");	
+		}else if(first_letter==0){
+			system("continue"); 
+		}else{
+			std::cout<<"Podano bledne dane\n";
+			return false;
+		}
+		return false;
+}
+
+
+
+ void shots(std::string x)
  {
-	
-	 for(auto x: vec){
 		 column_shot=x.front();
 		 user_row=x.at(1);
 		 row_shot=std::atoi(user_row.c_str());
@@ -147,9 +133,8 @@ void check_uppercase(std::string ship)
 			 Battelfield[row_shot][column_shot]="D";
 			
 		 }else if(column_shot<0){
-			 break;
+			system("continue");
 		 }
-	 }
 	
  }
  void aircraft_status(std::string ship)
@@ -250,28 +235,26 @@ void vector_size(std::vector<std::string>vec)
 	 }
 		vSize=vSize+count_place;
 		vec.erase(vec.begin()+count_place, vec.begin()+vSize);
-		
 	
 }
 
-void SHOW_RESULT(std::vector<std::string>vec)
+void SHOW_RESULT(std::string s)
  {
 	
-	 for(auto x: vec){
-		 column_shot=x.front();
+	 
+		 column_shot=s.front();
 		 if(column_shot==0){
-			 break;
+			 system("continue");
 		 }else{
-			 user_row=x.at(1);
+			 user_row=s.at(1);
 			 row_shot=std::atoi(user_row.c_str());
 			 column_shot=column_shot-64;
 			 row_shot=row_shot+1;
 			 std::cout<<Battelfield[row_shot][column_shot]<<" ";
 		 }
-	 }
+	 
 	std::cout<<"\n";
  }
-	 
 
 auto main(int argc, char* argv[])->int
 {
@@ -370,7 +353,7 @@ auto main(int argc, char* argv[])->int
 	//setting position of destroyer4
 	set_ships(destroyer4,1);
 	
-	
+	bool prawda;
 	do{
 	int vSize=0;
 	std::vector<std::string>shooting;
@@ -387,34 +370,32 @@ auto main(int argc, char* argv[])->int
 		shooting.push_back(x);
 		i=i+3;
 	}
+	vector_size(shooting);
+	shooting.shrink_to_fit();
+	for(std::string x: shooting){ 
+		prawda=user_uppercase(x);	
+		if(prawda==true){
+			shots(x);
+			aircraft_status(aircraft);
+			submarine_status(submarine1);
+			submarine_status(submarine2);
+			cruiser_status(cruiser1);
+			cruiser_status(cruiser2);
+			cruiser_status(cruiser3);
+			destroyer_status(destroyer1);
+			destroyer_status(destroyer2);
+			destroyer_status(destroyer3);
+			destroyer_status(destroyer4);
+			SHOW_RESULT(x);
+		}		
+	}
 	
-	vector_size(shooting); 
-	
-	//user_uppercase(shooting);
-	//if(user_uppercase(shooting)==true){
-		shots(shooting);
-		aircraft_status(aircraft);
-		submarine_status(submarine1);
-		submarine_status(submarine2);
-		cruiser_status(cruiser1);
-		cruiser_status(cruiser2);
-		cruiser_status(cruiser3);
-		destroyer_status(destroyer1);
-		destroyer_status(destroyer2);
-		destroyer_status(destroyer3);
-		destroyer_status(destroyer4);
-		SHOW_RESULT(shooting);
-	//}
-	/*for(auto s: shooting){
-		std::cout<<s<<"\n";
-	}*/
+	shooting.clear();
+	shooting.shrink_to_fit();
 	std::fill(std::begin(shooting_position), std::end(shooting_position),' ');
 	std::fill(std::begin(position), std::end(position)," ");
-	shooting.clear();
 	//showBattelfield();
 	}while(count_z!=20);
-	std::cout<<"\aBrawo wszytkie statki zostaly zatopione!!!\n!!!!!!!Wygrales te rozgrywke!!!!!!\n";
+	std::cout<<"Brawo wszytkie statki zostaly zatopione!!!\n!!!!!!!Wygrales te rozgrywke!!!!!!\n";
 	exit(0);
-	
-	
 }
