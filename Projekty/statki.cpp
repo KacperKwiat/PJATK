@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <memory>
+
 
 std::string Battelfield[11][11];
 std::string ship_place[10];
@@ -18,7 +18,7 @@ int row_shot;
 int column_shot;
 std::string user_row;
 int count_z=0;
-int vSize=0;
+
 std::string position[30];
 
 void showBattelfield()
@@ -43,6 +43,14 @@ void check_uppercase(std::string ship)
 		 std::cout<<"Prosze uruchomic program ponownie tym razem wprowadzajac wszytkie pole uzywajac wielkich liter oraz pamietaj o przedziale od A do J"<<std::endl;
 		 exit(1);
 	 }
+	/* row= ship.at(1);
+	 row_position= std::atoi(row.c_str());
+	 row_position=row_position+1;	
+	 if(row_position>9 || row_position<0){
+		 std::cout<<"Po literze oznaczajacej kolumne prosze wpisac cyfre wiersza od 0 do 9\n";
+	 }else{
+		 system("conitinue");
+	 }*/
  }
  
  void set_ships(std::string ship, int ship_size)
@@ -100,39 +108,30 @@ void check_uppercase(std::string ship)
 		 
  }
  
- void user_uppercase(std::vector<std::string>vec)
+ bool user_uppercase(std::vector<std::string>vec)
  {
-	  int count_place=0;
-	 for(auto s: vec){
-		
-		first_letter=s.front();
-		if(64<first_letter && first_letter<91 || 96<first_letter && first_letter<123){
-			count_place=count_place+1;
-			system("continue");
-		}else{
-			vSize=vSize+1;
-		}
-	 }
-		vSize=vSize+count_place;
-		vec.erase(vec.begin()+count_place, vec.begin()+vSize);
-		for(auto s: vec){
-		std::cout<<s<<"\n";
-	} 
+
 	for(auto s: vec){
 		first_letter=s.front();
-		if(64<first_letter && first_letter<91){
+		if(64<first_letter && first_letter<75){
+			return true;
 			 system("continue");
-		 }else{
+		 }else if(first_letter==0){
+			 return true;
+			 system("continue");
+		 }else if(64>first_letter || first_letter>75){
 			 std::cout<<"Podane dane sa bledne prosze je zmienic "<<std::endl;
+			 return false;
 			 break;
+			 
 		 }
 	 }
-	
+	exit(0);
  
  }
  void shots(std::vector<std::string>vec)
  {
-		
+	
 	 for(auto x: vec){
 		 column_shot=x.front();
 		 user_row=x.at(1);
@@ -144,9 +143,14 @@ void check_uppercase(std::string ship)
 		 }else if(Battelfield[row_shot][column_shot]=="x"){
 			 Battelfield[row_shot][column_shot]="T";
 			 count_z=count_z+1;
+		 }else if(Battelfield[row_shot][column_shot]=="T" || Battelfield[row_shot][column_shot]=="P" || Battelfield[row_shot][column_shot]=="Z"){
+			 Battelfield[row_shot][column_shot]="D";
+			
+		 }else if(column_shot<0){
+			 break;
 		 }
 	 }
-		 
+	
  }
  void aircraft_status(std::string ship)
  {
@@ -156,14 +160,14 @@ void check_uppercase(std::string ship)
 	 column_position = column_position-64;
 	 row_position=row_position+1;	
 	 placment=ship.back();
-	 if(placment=="v"){
-		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="T"&& Battelfield[row_position+3][column_position]=="T" ){
+	if(placment=="v"){
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="T"&& Battelfield[row_position+3][column_position]=="T" || Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="T"&& Battelfield[row_position+3][column_position]=="T" || Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="D" && Battelfield[row_position+2][column_position]=="T"&& Battelfield[row_position+3][column_position]=="T" || Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="D"&& Battelfield[row_position+3][column_position]=="T" || Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="T"&& Battelfield[row_position+3][column_position]=="D"|| Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="D"&& Battelfield[row_position+3][column_position]=="D" || Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="D" && Battelfield[row_position+2][column_position]=="T"&& Battelfield[row_position+3][column_position]=="D" || Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="T"&& Battelfield[row_position+3][column_position]=="D" || Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="D" && Battelfield[row_position+2][column_position]=="D"&& Battelfield[row_position+3][column_position]=="T" || Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="D"&& Battelfield[row_position+3][column_position]=="T"|| Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="D" && Battelfield[row_position+2][column_position]=="T"&& Battelfield[row_position+3][column_position]=="T"||Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="D" && Battelfield[row_position+2][column_position]=="D"&& Battelfield[row_position+3][column_position]=="D"||Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="D" && Battelfield[row_position+2][column_position]=="T"&& Battelfield[row_position+3][column_position]=="D" || Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="D"&& Battelfield[row_position+3][column_position]=="D"|| Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="D" && Battelfield[row_position+2][column_position]=="D"&& Battelfield[row_position+3][column_position]=="T"){
 			 for(int i=0;i<4;i++){
 				 Battelfield[row_position+i][column_position]="Z";
 			 }
 		 }
 	 }else{
-		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="T"&& Battelfield[row_position][column_position+3]=="T" ){
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="T"&& Battelfield[row_position][column_position+3]=="T" || Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="T"&& Battelfield[row_position][column_position+3]=="T" || Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="D" && Battelfield[row_position][column_position+2]=="T"&& Battelfield[row_position][column_position+3]=="T" || Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="D"&& Battelfield[row_position][column_position+3]=="T" || Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="T"&& Battelfield[row_position][column_position+2]=="D"|| Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="D"&& Battelfield[row_position][column_position+3]=="D" || Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="D" && Battelfield[row_position][column_position+2]=="T"&& Battelfield[row_position][column_position+3]=="D" || Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="T"&& Battelfield[row_position][column_position+3]=="D" || Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="D" && Battelfield[row_position][column_position+2]=="D"&& Battelfield[row_position][column_position+3]=="T" || Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="D"&& Battelfield[row_position][column_position+3]=="T"|| Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="D" && Battelfield[row_position][column_position+2]=="T"&& Battelfield[row_position][column_position+3]=="T"||Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="D" && Battelfield[row_position][column_position+2]=="D"&& Battelfield[row_position][column_position+3]=="D"||Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="D" && Battelfield[row_position][column_position+2]=="T"&& Battelfield[row_position][column_position+3]=="D" || Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="D"&& Battelfield[row_position][column_position+3]=="D"|| Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="D" && Battelfield[row_position][column_position+2]=="D"&& Battelfield[row_position][column_position+3]=="T"){
 			 for(int i=0;i<4;i++){
 				 Battelfield[row_position][column_position+i]="Z";
 			 }
@@ -181,13 +185,13 @@ void check_uppercase(std::string ship)
 	 row_position=row_position+1;	
 	 placment=ship.back();
 	 if(placment=="v"){
-		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="T"){
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="T"|| Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="T"||Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="D" && Battelfield[row_position+2][column_position]=="T"||Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="D"||Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="D" && Battelfield[row_position+2][column_position]=="T"||Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="T" && Battelfield[row_position+2][column_position]=="D"||Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="D" && Battelfield[row_position+2][column_position]=="D"){
 			 for(int i=0;i<3;i++){
 				 Battelfield[row_position+i][column_position]="Z";
 			 }
 		 }
 	 }else{
-		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="T"){
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="T"||Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="T"||Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="D" && Battelfield[row_position][column_position+2]=="T"||Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="D"||Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="D" && Battelfield[row_position][column_position+2]=="T"||Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="T" && Battelfield[row_position][column_position+2]=="D"||Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="D" && Battelfield[row_position][column_position+2]=="D"){
 			 for(int i=0;i<3;i++){
 				 Battelfield[row_position][column_position+i]="Z";
 			 }
@@ -204,13 +208,13 @@ void check_uppercase(std::string ship)
 	 row_position=row_position+1;	
 	 placment=ship.back();
 	 if(placment=="v"){
-		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T"){
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="T"||Battelfield[row_position][column_position]=="D" && Battelfield[row_position+1][column_position]=="T"||Battelfield[row_position][column_position]=="T" && Battelfield[row_position+1][column_position]=="D"){
 			 for(int i=0;i<2;i++){
 				 Battelfield[row_position+i][column_position]="Z";
 			 }
 		 }
 	 }else{
-		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T"){
+		 if(Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="T"||Battelfield[row_position][column_position]=="D" && Battelfield[row_position][column_position+1]=="T"||Battelfield[row_position][column_position]=="T" && Battelfield[row_position][column_position+1]=="D"){
 			 for(int i=0;i<2;i++){
 				 Battelfield[row_position][column_position+i]="Z";
 			 }
@@ -232,6 +236,7 @@ void check_uppercase(std::string ship)
 
 void vector_size(std::vector<std::string>vec)
 {
+	 int vSize=0;
 	 int count_place=0;
 	 for(auto s: vec){
 		
@@ -246,8 +251,26 @@ void vector_size(std::vector<std::string>vec)
 		vSize=vSize+count_place;
 		vec.erase(vec.begin()+count_place, vec.begin()+vSize);
 		
-		
+	
 }
+
+void SHOW_RESULT(std::vector<std::string>vec)
+ {
+	
+	 for(auto x: vec){
+		 column_shot=x.front();
+		 if(column_shot==0){
+			 break;
+		 }else{
+			 user_row=x.at(1);
+			 row_shot=std::atoi(user_row.c_str());
+			 column_shot=column_shot-64;
+			 row_shot=row_shot+1;
+			 std::cout<<Battelfield[row_shot][column_shot]<<" ";
+		 }
+	 }
+	std::cout<<"\n";
+ }
 	 
 
 auto main(int argc, char* argv[])->int
@@ -349,6 +372,7 @@ auto main(int argc, char* argv[])->int
 	
 	
 	do{
+	int vSize=0;
 	std::vector<std::string>shooting;
 	std::cout<<"Prosze teraz podac pozycje, ktore maja zostac odsloniete(program przyjmnie maksymalnie 10 pol):\n";
 	std::cin.getline(shooting_position,30);
@@ -364,26 +388,33 @@ auto main(int argc, char* argv[])->int
 		i=i+3;
 	}
 	
-	//vector_size(shooting); 
+	vector_size(shooting); 
 	
-	user_uppercase(shooting);
-	/*shots(get_position,tab_size);
-	aircraft_status(aircraft);
-	submarine_status(submarine1);
-	submarine_status(submarine2);
-	cruiser_status(cruiser1);
-	cruiser_status(cruiser2);
-	cruiser_status(cruiser3);
-	destroyer_status(destroyer1);//:)
-	destroyer_status(destroyer2);
-	destroyer_status(destroyer3);
-	destroyer_status(destroyer4);*/
-		std::fill(std::begin(shooting_position), std::end(shooting_position),' ');
-		std::fill(std::begin(position), std::end(position)," ");
-		shooting.clear();
+	//user_uppercase(shooting);
+	//if(user_uppercase(shooting)==true){
+		shots(shooting);
+		aircraft_status(aircraft);
+		submarine_status(submarine1);
+		submarine_status(submarine2);
+		cruiser_status(cruiser1);
+		cruiser_status(cruiser2);
+		cruiser_status(cruiser3);
+		destroyer_status(destroyer1);
+		destroyer_status(destroyer2);
+		destroyer_status(destroyer3);
+		destroyer_status(destroyer4);
+		SHOW_RESULT(shooting);
+	//}
+	/*for(auto s: shooting){
+		std::cout<<s<<"\n";
+	}*/
+	std::fill(std::begin(shooting_position), std::end(shooting_position),' ');
+	std::fill(std::begin(position), std::end(position)," ");
+	shooting.clear();
 	//showBattelfield();
 	}while(count_z!=20);
-	//showBattelfield();
+	std::cout<<"\aBrawo wszytkie statki zostaly zatopione!!!\n!!!!!!!Wygrales te rozgrywke!!!!!!\n";
+	exit(0);
 	
-	return 0;
+	
 }
