@@ -1,0 +1,116 @@
+body {
+    background-color: white;
+    font-family: 'Raleway', sans-serif;
+    background-color: azure;
+
+}
+#login_bar{
+
+    display:flex;
+    align-items: center;
+    color:#fff;
+    background:none;
+    border:none;
+    padding:12px 18px;
+    position:relative;
+
+}
+#login_bar:before{
+    content: "";
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%) translateX(20px);
+    width: 45px;
+    height: 45px;
+    background:#ffd700;
+    border-radius: 50px;
+    transition: transform .25s .25s cubic-bezier(0, 0, .5, 2), width .25s cubic-bezier(0, 0, .5, 2);
+    z-index: -1;
+
+}
+#login_bar:hover::before{
+    width: 100%;
+    transform: translateY(-50%) translateX(-18px);
+    transition: transform .25s cubic-bezier(0, 0, .5, 2) , width .25s .25s cubic-bezier(0, 0, .5, 2);
+
+}
+#login_bar i{
+    margin-left: 5px;
+    transition: transform .25s .4s cubic-bezier(0, 0, .5, 2);
+}
+#login_bar:hover{
+    transform: translateX(3px);
+}
+
+#banner {
+    background-image: url("foto/Studio-Project.png");
+    background-size: cover;
+    background-position: bottom center;
+    height: 100%;
+    width: 100%;
+    padding-top: 3px;
+    margin-bottom: 0%;
+}
+
+#banner .content h1 {
+    font-size: xxx-large;
+    position: center;
+    top: 50px;
+    height: 200px;
+    width: 250px;
+    margin: 0 auto;
+    padding: 3px;
+    color: whitesmoke;
+}
+
+#main {
+    padding: 40px;
+    text-align: center;
+    width: 400px;
+}
+
+h1 {
+    color: white;
+    font-size: 42px;
+    font-weight: 600;
+    text-align: center;
+}
+
+p {
+    color: grey;
+    font-size: 16px;
+    line-height: 48px;
+}
+
+.column {
+    border: black;
+    float: left;
+    width: 50%;
+
+}
+.column1 {
+    border: black 10px;
+    float: left;
+    width: 50%;
+
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.gmaps_canvas{
+    border-top: black;
+}
+.table{
+    border: thick black;
+    margin-top: 15xp;
+
+}
+.info{
+    position: relative;
+    font-size: large;
+    margin: 0px;
+    background: #ffd700;
+}
