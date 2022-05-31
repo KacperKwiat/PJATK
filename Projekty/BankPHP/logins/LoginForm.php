@@ -19,14 +19,14 @@ if(empty($_SESSION['user'])) {
     <html>
 
     <form action="loginin.php" method="post">
-            <input type="text" name="login" placeholder="Enter your login" required>
-            <br>
-            <input type="password" name="password" placeholder="Enter your password" required>
-            <br>
-            <input type="submit" name="submit" value="Submit">
-        </form>
+        <input type="text" name="login" placeholder="Enter your login" required>
+        <br>
+        <input type="password" name="password" placeholder="Enter your password" required>
+        <br>
+        <input type="submit" name="submit" value="Submit">
+    </form>
     </html>
-<?php
+    <?php
 }
 ?>
 </body>
