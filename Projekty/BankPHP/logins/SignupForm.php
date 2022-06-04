@@ -17,18 +17,17 @@ if(empty($_SESSION['user'])) {
     ?>
     <html>
 
-    <form action="loginin.php" method="post">
+    <form action="signingin.php" method="post">
         <input type="text" name="login" placeholder="Enter your login" required>
         <br>
         <input type="password" name="password" placeholder="Enter your password" required>
         <br>
-        <input type="submit" name="submit" value="Log in"><br>
-        <button><a href="SignupForm.php">Click to Sign Up</a></button>
+        <input type="submit" name="submit" value="Sign Up"><br>
+        <button><a href="LoginForm.php">Click to Log In</a></button>
     </form>
     </html>
     <?php
 }
-
 
 ?>
 </body>
