@@ -11,12 +11,7 @@
 <center>
     <body>
     <?php
-    include 'C:\Git\PJATK\Projekty\BankPHP\logins\loginin.php';
-    include 'C:\Git\PJATK\Projekty\BankPHP\logins\signingin.php';
-    echo "Witamy w banku";
-    $connect= mysqli_connect("127.0.0.1","root","","projekt");
-    $sql="select id from logins where login ='$login'";
-    echo $sql;
+    echo "witam w banku";
     ?>
     </body>
 </center>

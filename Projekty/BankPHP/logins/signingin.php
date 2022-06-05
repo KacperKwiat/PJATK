@@ -1,14 +1,14 @@
 <?php
 $dbuser = 'root';
 $dbpass = '';
-$db = new PDO("mysql:host=localhost;dbname=projekt", $dbuser,$dbpass) or die ("Wywaliłem sie");
+$db = new PDO("mysql:host=localhost;dbname=test", $dbuser,$dbpass) or die ("Unsuccessful connection");
 
 if(isset($_POST['login'])){
     $login=$_POST['login'];
     $password=$_POST['password'];
     $result=$db->query("select *from logins where login ='$login'");
 
-    if($result->fetchColumn()==0){
+    if($result->rowCount()==0){
         $Nsql="INSERT INTO `logins` (`id`, `login`, `password`) VALUES (NULL, '$login', '$password')";
         $db->query($Nsql);
         $accNum=null;
@@ -28,6 +28,7 @@ if(isset($_POST['login'])){
         }
         $sql_2="INSERT INTO `account` (`id`, `number`, `money_amount`,`logins_fk` ) VALUES (NULL, '$accNum', 50, '$user')";
         $db->query($sql_2);
+
         header("Location: bank/account.php");
 
     }else{

@@ -1,14 +1,14 @@
 <?php
+$dbuser = 'root';
+$dbpass = '';
+$db = new PDO("mysql:host=localhost;dbname=projekt", $dbuser,$dbpass) or die ("Unsuccessfulconnection");
 
-
-$connect= mysqli_connect("127.0.0.1","root","","projekt");
-
-if(isset($_POST['login'])){
+if(isset($_POST['submit'])){
     $login=$_POST['login'];
     $password=$_POST['password'];
     $sql="select *from logins where login ='$login' AND password ='$password'";
-    $result=mysqli_query($connect,$sql);
-    if(mysqli_num_rows($result)==1){
+    $result=$db->query($sql);
+    if($result->rowCount()==1){
         header("Location: bank/account.php");
     }else{
         echo "You have entered wrong password or login";
