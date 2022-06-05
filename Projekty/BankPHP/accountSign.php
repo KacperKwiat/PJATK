@@ -1,7 +1,7 @@
 <?php
 $dbuser = 'root';
 $dbpass = '';
-$db = new PDO("mysql:host=localhost;dbname=test", $dbuser,$dbpass) or die ("Unsuccessful connection");
+$db = new PDO("mysql:host=localhost;dbname=projekt", $dbuser,$dbpass) or die ("Unsuccessful connection");
 
 if(isset($_POST['login'])){
     $login=$_POST['login'];
@@ -29,8 +29,27 @@ if(isset($_POST['login'])){
         $sql_2="INSERT INTO `account` (`id`, `number`, `money_amount`,`logins_fk` ) VALUES (NULL, '$accNum', 50, '$user')";
         $db->query($sql_2);
 
-        header("Location: bank/account.php");
+        echo "As thank you for creating account in our bank we give you 50PLN for your first transaction".'<br>';
+        $sql_3="Select number from account where logins_fk='$user'";
+        $num=$db->query($sql_3);
+        $number=$num->fetch(PDO::FETCH_OBJ);
 
+        $accountNumber=0;
+        foreach ($number as $acc){
+            $accountNumber= $acc;
+
+        }
+
+        echo "Your bank account number is ".$accountNumber.'<br>';
+        $sql_4="Select money_amount from account where logins_fk='$user'";
+        $m=$db->query($sql_4);
+        $amount=$m->fetch(PDO::FETCH_OBJ);
+        $money=0;
+        foreach ($amount as $mon){
+            $money= $mon;
+
+        }
+        echo "Your bank balance is ".$money.' PLN'.'<br>';
     }else{
         echo "Chosen login name is already taken";
     }
