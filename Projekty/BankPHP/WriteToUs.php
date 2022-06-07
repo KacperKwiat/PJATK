@@ -15,23 +15,28 @@ $cookie_name = "vote";
 <?php
 if(!isset($_COOKIE[$cookie_name])) {
 ?>
-    <html>
 
-    <form action="costumerHelp.php" method="post">
-        <input type="email" name="email" placeholder="Enter your email" required>
+
+
+    <html>
+    <center>
+    <form action="saveHelp.php" method="post">
+        <input type="email" name="email" placeholder="Enter your email" style="width: 150px; height: 30px " required>
         <br>
-        <textarea name="clientHelp" placeholder="How can we help you?"></textarea>
+        <textarea name="clientHelp" placeholder="How can we help you?" maxlength="250" style="width: 300px;height: 300px"></textarea>
         <br>
-        <input type="submit" name="submit" value="Submit"><br>
+        <input type="submit" name="submit" value="Submit" style="width: 150px; height: 30px;font-size: large"><br>
 
     </form>
     <?php
     } else {
-        echo "Cookie " . $cookie_name . " is set!";
-        echo "We have recived your data please be patient w will contact you soon. ";
+        echo "Cookie " . $cookie_name . " is set!".'<br>';
+        echo "We have recived your data please be patient w will contact you soon. ".'<br>';
     }
     ?>
-    <a href="index.html">Go back</a>
+        <input type="button" value="Go back" onclick="history.back()">
+    </center>
     </html>
+
 </body>
 </html>

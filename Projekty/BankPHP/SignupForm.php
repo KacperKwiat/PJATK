@@ -1,7 +1,4 @@
-<?php
 
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,11 +9,10 @@ session_start();
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-<?php
-if(empty($_SESSION['user'])) {
-    ?>
+
     <html>
 
+    <center>
     <form action="accountSign.php" method="post">
         <input type="text" name="login" placeholder="Enter your login" required>
         <br>
@@ -25,10 +21,13 @@ if(empty($_SESSION['user'])) {
         <input type="submit" name="submit" value="Sign Up"><br>
         <button><a href="LoginForm.php">Click to Log In</a></button>
     </form>
+    </center>
+    <div>
+        <button id="login_bar">
+            <a href="index.html" style="color: black;">Go back<i class="ri-arrow-right-line"></i> </a>
+        </button>
+    </div>
     </html>
-    <?php
-}
 
-?>
 </body>
 </html>

@@ -1,13 +1,21 @@
 <?php
+session_start();
 $dbuser = 'root';
 $dbpass = '';
-$db = new PDO("mysql:host=localhost;dbname=projekt", $dbuser,$dbpass) or die ("Unsuccessfulconnection");
+$db = new PDO("mysql:host=localhost;dbname=projekt", $dbuser,$dbpass) or die ("Unsuccessfulconnection");?>
+<body>
+<center>
+
+
+<?php
 
 if(isset($_POST['submit'])){
     $login=$_POST['login'];
     $password=$_POST['password'];
     $sql="select *from logins where login ='$login' AND password ='$password'";
-    $result=$db->query($sql);
+    $result=$db->query($sql);?>
+    <a href="logout.php" style="position:absolute; top:0; right:0" ><button>Log out</button></a>
+    <?php
     if($result->rowCount()==1){
         $result=$db->query("select id from logins where login='$login'");
         $id=$result->fetch(PDO::FETCH_OBJ);
@@ -34,13 +42,19 @@ if(isset($_POST['submit'])){
             $money= $mon;
 
         }
-        echo "Your bank balance is ".$money.' PLN'.'<br>';
+        echo "Your bank balance is ".$money.' PLN'.'<br>';?>
+        <a href="transferForm.php"><button>Make transfer</button></a>&nbsp;&nbsp;<?php
 
     }else{
         echo "You have entered wrong password or login";
+        header("refresh:1;url=LoginForm.php");
     }
 }else{
     echo "None data was recived";
+    header("refresh:1;url=LoginForm.php");
 }
 
 ?>
+<a href="opinion_form.php"><button>Share opinion</button></a>
+</center>
+</body>

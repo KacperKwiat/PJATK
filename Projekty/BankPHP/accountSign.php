@@ -1,4 +1,14 @@
+
+<html>
+<head>
+    <title>Golden Horizon BAnk</title>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Raleway:100,200,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+</html>
+<a href="logout.php" style="position:absolute; top:0; right:0;width: 150px"><button style="width: 150px" >Log out</button></a>
 <?php
+session_start();
 $dbuser = 'root';
 $dbpass = '';
 $db = new PDO("mysql:host=localhost;dbname=projekt", $dbuser,$dbpass) or die ("Unsuccessful connection");
@@ -6,8 +16,9 @@ $db = new PDO("mysql:host=localhost;dbname=projekt", $dbuser,$dbpass) or die ("U
 if(isset($_POST['login'])){
     $login=$_POST['login'];
     $password=$_POST['password'];
-    $result=$db->query("select *from logins where login ='$login'");
+    $result=$db->query("select *from logins where login ='$login'");?>
 
+    <?php
     if($result->rowCount()==0){
         $Nsql="INSERT INTO `logins` (`id`, `login`, `password`) VALUES (NULL, '$login', '$password')";
         $db->query($Nsql);
@@ -29,27 +40,11 @@ if(isset($_POST['login'])){
         $sql_2="INSERT INTO `account` (`id`, `number`, `money_amount`,`logins_fk` ) VALUES (NULL, '$accNum', 50, '$user')";
         $db->query($sql_2);
 
-        echo "As thank you for creating account in our bank we give you 50PLN for your first transaction".'<br>';
-        $sql_3="Select number from account where logins_fk='$user'";
-        $num=$db->query($sql_3);
-        $number=$num->fetch(PDO::FETCH_OBJ);
+        echo "As thank you for creating account in our bank we give you 50PLN for your first transaction".'<br>'." Now try to log into your new account";
 
-        $accountNumber=0;
-        foreach ($number as $acc){
-            $accountNumber= $acc;
+        header("refresh:5;url=LoginForm.php");
 
-        }
 
-        echo "Your bank account number is ".$accountNumber.'<br>';
-        $sql_4="Select money_amount from account where logins_fk='$user'";
-        $m=$db->query($sql_4);
-        $amount=$m->fetch(PDO::FETCH_OBJ);
-        $money=0;
-        foreach ($amount as $mon){
-            $money= $mon;
-
-        }
-        echo "Your bank balance is ".$money.' PLN'.'<br>';
     }else{
         echo "Chosen login name is already taken";
     }
