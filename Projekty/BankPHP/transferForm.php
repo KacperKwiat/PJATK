@@ -21,9 +21,10 @@
         <input type="number double" name="moneyTransfer" min="1" placeholder="Amount to transfer" style="width: 200px"required>
         <br>
         <input type="submit" name="submit" value="Submit"><br>
-        <input type="button" value="Go back" onclick="history.back()">
+
 
     </form>
+        <a href="accountLog.php">Go back</a>
     </center>
     </html>
 

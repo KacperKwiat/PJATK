@@ -16,7 +16,7 @@
 <html>
 <center>
     <form action="opinion.php" method="post">
-        <input type="text" name="login" placeholder="Enter your email" style="width: 150px; height: 30px " required>
+        <input type="text" name="login" placeholder="Enter your login" style="width: 150px; height: 30px " required>
         <br>
         <textarea name="clientSurvey" placeholder="How can we help you?" maxlength="250" style="width: 300px;height: 300px"></textarea>
         <br>

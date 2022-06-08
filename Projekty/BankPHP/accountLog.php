@@ -50,7 +50,7 @@ if(isset($_POST['submit'])){
         header("refresh:1;url=LoginForm.php");
     }
 }else{
-    echo "None data was recived";
+    echo "None data was received";
     header("refresh:1;url=LoginForm.php");
 }
 

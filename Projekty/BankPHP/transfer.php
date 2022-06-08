@@ -2,7 +2,6 @@
 
 
 <?php
-
 $dbuser = 'root';
 $dbpass = '';
 $db = new PDO("mysql:host=localhost;dbname=projekt", $dbuser,$dbpass) or die ("Unsuccessful connection");
@@ -13,8 +12,10 @@ if(isset($_POST['submit'])){
     $transfermoney=$_POST['moneyTransfer'];
     $result1=$db->query("select * from account where number='$yourAcc'");
     $result2=$db->query("select * from account where number='$reciverAcc'");
-    if($result1->rowCount()!=1 && $result2!=1){
-        echo "Given account number doesnt exist ".'<br>';
+    if($result1->rowCount()!=1 && $result2->rowCount()!=1){
+        echo "Given account number doesnt exist ".'<br>'."Try again";
+        header("refresh:4;url=transferForm.php");
+        exit(1);
     }
     $sql="select money_amount from account where number='$yourAcc'";
     $money=$db->query($sql);
